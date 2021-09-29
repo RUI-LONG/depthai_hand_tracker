@@ -2,6 +2,9 @@
 
 
 from HandTrackerRenderer import HandTrackerRenderer
+from BallTrackerRenderer import BallTrackerRenderer
+
+from BallTracker import BallTracker
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -64,16 +67,24 @@ tracker = HandTracker(
         **tracker_args
         )
 
+ball_tracker = BallTracker()
+
 renderer = HandTrackerRenderer(
         tracker=tracker,
         output=args.output)
+
+ball_renderer = BallTrackerRenderer()
 
 while True:
     # Run hand tracker on next frame
     # 'bag' is information common to the frame and to the hands 
     # (like body keypoints in Body Pre Focusing mode)
     frame, hands, bag = tracker.next_frame()
+    center, pts, rad = ball_tracker.next_frame(frame)
+    
     if frame is None: break
+    # Draw Ball
+    frame = ball_renderer.draw(frame, center, pts, rad)
     # Draw hands
     frame = renderer.draw(frame, hands, bag)
     key = renderer.waitKey(delay=1)
