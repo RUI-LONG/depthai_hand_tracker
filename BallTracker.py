@@ -14,15 +14,15 @@ class BallTracker:
         pass
 
     def recognize_ball(self, frame):
-        blurred = cv2.GaussianBlur(frame, (11, 11), 0)
-        hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
+        # blurred = cv2.GaussianBlur(frame, (11, 11), 0)
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
         # construct a mask for the color "red", then perform
         # a series of dilations and erosions to remove any small
         # blobs left in the mask
         mask = cv2.inRange(hsv, self.blueLower, self.blueUpper)
-        mask = cv2.erode(mask, None, iterations=2)
-        mask = cv2.dilate(mask, None, iterations=2)
+        # mask = cv2.erode(mask, None, iterations=2)
+        # mask = cv2.dilate(mask, None, iterations=2)
 
         # find contours in the mask and initialize the current
         # (x, y) center of the ball
