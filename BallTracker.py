@@ -5,8 +5,8 @@ from collections import deque
 
 class BallTracker:
     def __init__(self):
-        self.blueLower = (80, 80, 0)
-        self.blueUpper = (160, 186, 200)
+        self.redLower = (114, 72, 0)
+        self.redUpper = (176, 208, 218)
         self.pts = deque(maxlen=16)
 
 
@@ -20,7 +20,7 @@ class BallTracker:
         # construct a mask for the color "red", then perform
         # a series of dilations and erosions to remove any small
         # blobs left in the mask
-        mask = cv2.inRange(hsv, self.blueLower, self.blueUpper)
+        mask = cv2.inRange(hsv, self.redLower, self.redUpper)
         # mask = cv2.erode(mask, None, iterations=2)
         # mask = cv2.dilate(mask, None, iterations=2)
 

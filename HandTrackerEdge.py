@@ -1,15 +1,18 @@
 import numpy as np
 from collections import namedtuple
-import mediapipe_utils as mpu
 import depthai as dai
 import cv2
 from pathlib import Path
-from FPS import FPS, now
 import time
 import sys
 from string import Template
 import marshal
-
+try:
+    from FPS import FPS, now
+    import mediapipe_utils as mpu
+except ModuleNotFoundError:
+    from depthai_hand_tracker.FPS import FPS, now
+    import depthai_hand_tracker.mediapipe_utils as mpu
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PALM_DETECTION_MODEL = str(SCRIPT_DIR / "models/palm_detection_sh4.blob")
@@ -469,6 +472,12 @@ class HandTracker:
             r.gesture = "OK" 
         elif r.thumb_state == 0 and r.index_state == 1 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 0:
             r.gesture = "ONE"
+        elif r.thumb_state == 0 and r.index_state == 0 and r.middle_state == 1 and r.ring_state == 0 and r.little_state == 0:
+            r.gesture = "FUCK"
+        elif r.thumb_state == 1 and r.index_state == 1 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 0:
+            r.gesture = "SEVEN"
+        elif r.thumb_state == 1 and r.index_state == 1 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 1:
+            r.gesture = "ROCK"
         elif r.thumb_state == 0 and r.index_state == 1 and r.middle_state == 1 and r.ring_state == 0 and r.little_state == 0:
             r.gesture = "TWO"
         elif r.thumb_state == 0 and r.index_state == 1 and r.middle_state == 1 and r.ring_state == 1 and r.little_state == 0:
