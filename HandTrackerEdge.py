@@ -473,7 +473,7 @@ class HandTracker:
         elif r.thumb_state == 0 and r.index_state == 1 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 0:
             r.gesture = "ONE"
         elif r.thumb_state == 0 and r.index_state == 0 and r.middle_state == 1 and r.ring_state == 0 and r.little_state == 0:
-            r.gesture = "FUCK"
+            r.gesture = "FUCK1"
         elif r.thumb_state == 1 and r.index_state == 0 and r.middle_state == 1 and r.ring_state == 0 and r.little_state == 0:
             r.gesture = "FUCK2"
         elif r.thumb_state == 1 and r.index_state == 1 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 0:

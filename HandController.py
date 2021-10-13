@@ -3,7 +3,7 @@ sys.path.append("../..")
 import datetime
 from time import monotonic
 
-ALL_POSES = ["ONE","TWO","THREE","FOUR","FIVE","FIST","SEVEN","OK","FUCK","FUCK2"]
+ALL_POSES = ["ONE","TWO","THREE","FOUR","FIVE", "ROCK", "FIST","SEVEN","OK","FUCK1","FUCK2"]
 
 # Default values for config parameters
 # Each one of these parameters can be superseded by a new value if specified in client code
@@ -217,6 +217,8 @@ class HandController:
 
         # We are in solo mode -> either hands=[] or hands=[hand]
         hand = hands[0] if hands else None
+        if hand:
+            print("hand", hand.gesture)
 
         for i, pa in enumerate(self.pose_actions):
             hist = self.poses_hist[i]
