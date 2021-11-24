@@ -45,7 +45,7 @@ class HandTracker:
     - internal_frame_height : when using the internal color camera, set the frame height (calling setIspScale()).
                     The width is calculated accordingly to height and depends on value of 'crop'
     - use_gesture : boolean, when True, recognize hand poses froma predefined set of poses
-                    (ONE, TWO, THREE, FOUR, FIVE, OK, PEACE, FIST)
+                    (ONE, TWO, THREE, FOUR, FIVE, NICE, PEACE, FIST)
     - body_pre_focusing: None or "right" or "left" or "group" or "higher". Body pre focusing is the use
                     of a body pose detector to help to focus on the region of the image that
                     contains one hand ("left" or "right") or "both" hands. 
@@ -518,7 +518,7 @@ class HandTracker:
         elif r.thumb_state == 0 and r.index_state == 0 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 0:
             r.gesture = "FIST"
         elif r.thumb_state == 1 and r.index_state == 0 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 0:
-            r.gesture = "OK" 
+            r.gesture = "NICE" 
         elif r.thumb_state == 0 and r.index_state == 1 and r.middle_state == 0 and r.ring_state == 0 and r.little_state == 0:
             r.gesture = "ONE"
         elif r.thumb_state == 0 and r.index_state == 1 and r.middle_state == 1 and r.ring_state == 0 and r.little_state == 0:
@@ -631,8 +631,8 @@ class HandTracker:
             if self.input_type == "image":
                 frame = self.img.copy()
             else:
-                ok, frame = self.cap.read()
-                if not ok:
+                NICE, frame = self.cap.read()
+                if not NICE:
                     return None, None, None
             # Cropping and/or padding of the video frame
             video_frame = frame[self.crop_h:self.crop_h+self.frame_size, self.crop_w:self.crop_w+self.frame_size]

@@ -3,7 +3,7 @@ sys.path.append("../..")
 import datetime
 from time import monotonic
 
-ALL_POSES = ["ONE","TWO","THREE","FOUR","FIVE", "ROCK", "FIST","SEVEN","OK","FUCK1","FUCK2"]
+ALL_POSES = ["ONE","TWO","THREE","FOUR","FIVE", "ROCK", "FIST","SEVEN", "NICE", "FUCK1","FUCK2"]
 
 # Default values for config parameters
 # Each one of these parameters can be superseded by a new value if specified in client code
@@ -217,8 +217,10 @@ class HandController:
 
         # We are in solo mode -> either hands=[] or hands=[hand]
         hand = hands[0] if hands else None
-        if hand:
-            print("hand", hand.gesture)
+        # if hand:
+        #     print("Gesture: ", hand.gesture)
+        #     print("X: ", hand.rect_x_center_a, "Y: ", hand.rect_y_center_a)
+        #     print("Size: ", hand.rect_w_a)
 
         for i, pa in enumerate(self.pose_actions):
             hist = self.poses_hist[i]
@@ -271,7 +273,7 @@ class HandController:
             else:
                 self.caller_globals[e.callback](e)
 
-    def loop(self):
+    def loop(self, terminate=False):
         while True:
             self.now = monotonic()
             frame, hands, bag = self.tracker.next_frame()
@@ -283,7 +285,7 @@ class HandController:
             if self.use_renderer:
                 frame = self.renderer.draw(frame, hands, bag)
                 key = self.renderer.waitKey(delay=1)
-                if key == 27 or key == ord('q'):
+                if key == 27 or key == ord('q') or terminate:
                     break
         self.renderer.exit()
         self.tracker.exit()
